@@ -300,6 +300,9 @@ input[type="search"]::-webkit-search-decoration {
   -ms-animation-name: fadeOut;
   animation-name: fadeOut;
 }
+h1 > a {
+  color: #1f1f1f !important;
+}
 @-moz-keyframes fadeInDown {
   0% {
     opacity: 0;

@@ -4,24 +4,27 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>十九的个人博客</title>
+    <title>three.js 之整体旋转 | 十九的个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="nineteen">
     
 
     
-    <meta name="description" content="学习、总结">
-<meta name="keywords" content="前端">
-<meta property="og:type" content="website">
-<meta property="og:title" content="十九的个人博客">
-<meta property="og:url" content="https://nineteenforever.github.io/index.html">
+    <meta name="description" content="在three.js一个地球自转场景中，假如选择某个国家，要把这个国家旋转至正前方，如何实现？ 得出这个国家中心的位置用金纬度换算出在 three.js 坐标系中的位置，具体看地球如何实现，此处略。 计算出要旋转的x、y、z轴旋转至正前方，也就是把这点和中心位置的连成的线，旋转至中心位置和相机连成的线重合，在视觉上，就是正前方了。如图: 1234567891011// 由相机的位置和国家的位置计算出">
+<meta name="keywords" content="three,tween,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="three.js 之整体旋转">
+<meta property="og:url" content="https://nineteenforever.github.io/2018/04/20/three-group-rotate/index.html">
 <meta property="og:site_name" content="十九的个人博客">
-<meta property="og:description" content="学习、总结">
+<meta property="og:description" content="在three.js一个地球自转场景中，假如选择某个国家，要把这个国家旋转至正前方，如何实现？ 得出这个国家中心的位置用金纬度换算出在 three.js 坐标系中的位置，具体看地球如何实现，此处略。 计算出要旋转的x、y、z轴旋转至正前方，也就是把这点和中心位置的连成的线，旋转至中心位置和相机连成的线重合，在视觉上，就是正前方了。如图: 1234567891011// 由相机的位置和国家的位置计算出">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://nineteenforever.github.io/2018/04/20/three-group-rotate/group-rotate.png">
+<meta property="og:updated_time" content="2018-04-20T09:03:06.890Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="十九的个人博客">
-<meta name="twitter:description" content="学习、总结">
+<meta name="twitter:title" content="three.js 之整体旋转">
+<meta name="twitter:description" content="在three.js一个地球自转场景中，假如选择某个国家，要把这个国家旋转至正前方，如何实现？ 得出这个国家中心的位置用金纬度换算出在 three.js 坐标系中的位置，具体看地球如何实现，此处略。 计算出要旋转的x、y、z轴旋转至正前方，也就是把这点和中心位置的连成的线，旋转至中心位置和相机连成的线重合，在视觉上，就是正前方了。如图: 1234567891011// 由相机的位置和国家的位置计算出">
+<meta name="twitter:image" content="https://nineteenforever.github.io/2018/04/20/three-group-rotate/group-rotate.png">
 
     
     <link rel="alternative" href="/atom.xml" title="十九的个人博客" type="application/atom+xml">
@@ -73,12 +76,10 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2018/04/20/three-group-rotate/" title="three.js 之整体旋转" itemprop="url">three.js 之整体旋转</a>
@@ -92,22 +93,17 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <p>在<a href="https://threejs.org/" target="_blank" rel="noopener">three.js</a>一个地球自转场景中，假如选择某个国家，要把这个国家旋转至正前方，如何实现？</p>
+	<div class="article-content">
+		
+		<p>在<a href="https://threejs.org/" target="_blank" rel="noopener">three.js</a>一个地球自转场景中，假如选择某个国家，要把这个国家旋转至正前方，如何实现？</p>
 <h3 id="得出这个国家中心的位置"><a href="#得出这个国家中心的位置" class="headerlink" title="得出这个国家中心的位置"></a>得出这个国家中心的位置</h3><p>用金纬度换算出在 three.js 坐标系中的位置，具体看地球如何实现，此处略。</p>
 <h3 id="计算出要旋转的x、y、z轴"><a href="#计算出要旋转的x、y、z轴" class="headerlink" title="计算出要旋转的x、y、z轴"></a>计算出要旋转的x、y、z轴</h3><p>旋转至正前方，也就是把这点和中心位置的连成的线，旋转至中心位置和相机连成的线重合，在视觉上，就是正前方了。如图:<br><img src="/2018/04/20/three-group-rotate/group-rotate.png" alt="把A点旋转至A&#39;点，离相机最近，从相机看，就是正前方"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 由相机的位置和国家的位置计算出它们的旋转轴和夹角</span><br><span class="line">// 旋转轴</span><br><span class="line">const axis = new Vector3();</span><br><span class="line">axis.crossVectors(camera.position, country.position).normalize();</span><br><span class="line">// 夹角 </span><br><span class="line">const theta = camera.position.angleTo(country.position);</span><br><span class="line"></span><br><span class="line">// 创建一个物体，根据旋转轴和夹角设置旋转值</span><br><span class="line">// obj的rotation值就是地球将要rotation的值 默认逆时针旋转</span><br><span class="line">const obj = new Object3D();</span><br><span class="line">obj.setRotationFromAxisAngle(axis, -theta);</span><br></pre></td></tr></table></figure>
 <h3 id="用tween实现缓慢旋转的动画"><a href="#用tween实现缓慢旋转的动画" class="headerlink" title="用tween实现缓慢旋转的动画"></a>用<a href="https://github.com/tweenjs/tween.js" target="_blank" rel="noopener">tween</a>实现缓慢旋转的动画</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">  // 地球初始的 rotation</span><br><span class="line">  const rotation = &#123;</span><br><span class="line">    x: earth.rotation.x,</span><br><span class="line">    y: earth.rotation.y,</span><br><span class="line">    z: earth.rotation.z</span><br><span class="line">  &#125;;</span><br><span class="line">  const tween = new TWEEN.Tween(rotation)</span><br><span class="line">    .to(&#123;</span><br><span class="line">      x: obj.rotation.x,</span><br><span class="line">      y: obj.rotation.y,</span><br><span class="line">      z: obj.rotation.z</span><br><span class="line">    &#125;, 2000)</span><br><span class="line">    .onUpdate(<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">      self.root.rotation.set(rotation.x, rotation.y, rotation.z);</span><br><span class="line">    &#125;)</span><br><span class="line">    .end(<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">      self.objectRotating = <span class="literal">false</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">    .start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>然后在animate动画方法里添加 <code>TWEEN.update();</code>就好了。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
@@ -125,82 +121,45 @@
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-</div>
+	  <div data-url="https://nineteenforever.github.io/2018/04/20/three-group-rotate/" data-title="three.js 之整体旋转 | 十九的个人博客" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2018/04/16/hello-world/" title="Hello World" itemprop="url">Hello World</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="nineteen" target="_blank" itemprop="author">nineteen</a>
-		
-  <p class="article-time">
-    <time datetime="2018-04-16T06:53:45.590Z" itemprop="datePublished"> 发表于 2018-04-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2018/04/16/hello-world/"  title="Hello World">
+ <strong>下一篇：</strong><br/> 
+ <span>Hello World
+</span>
+</a>
 </div>
 
-</footer>
+</nav>
 
-
-    </article>
-
-
+	
 
 
 
-
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#得出这个国家中心的位置"><span class="toc-number">1.</span> <span class="toc-text">得出这个国家中心的位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算出要旋转的x、y、z轴"><span class="toc-number">2.</span> <span class="toc-text">计算出要旋转的x、y、z轴</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用tween实现缓慢旋转的动画"><span class="toc-number">3.</span> <span class="toc-text">用tween实现缓慢旋转的动画</span></a></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -335,12 +294,89 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
 
 
 
@@ -413,4 +449,4 @@ var _hmt = _hmt || [];
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
